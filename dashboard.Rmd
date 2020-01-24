@@ -1,0 +1,144 @@
+---
+title: "Trending Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    social: [ "twitter", "facebook", "menu"]
+    runtime: shiny
+    vertical_layout: scroll
+    theme: united
+---
+
+
+
+
+
+```{r setup, include=FALSE}
+library(flexdashboard) # yeti # simplex # united
+library(knitr)
+library(DT)
+library(rpivotTable)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(openintro)
+library(highcharter)
+library(ggvis)
+library(flexdashboard)
+library(readxl)
+library(shiny)
+library(sf)
+library(stringr)
+library(tidyverse)
+packages = c("stringr","tmap","sf","shiny","flexdashboard",'tidyverse', 'readxl', 'dplyr','ggplot2','plotly',"gridExtra")
+for (p in packages){
+  if(!require(p, character.only = T)){
+    install.packages(p)
+  }
+  library(p,character.only = T)
+}
+```
+
+
+
+
+
+```{r}
+mycolors <- c("blue","green","red","#FFC125", "darkgreen", "darkorange")
+```
+
+
+```{r include=FALSE}
+# Create a custom theme for the plots. 
+custom_theme <- hc_theme(
+  colors = c('#5CACEE', 'green', 'red'),
+  chart = list(
+         backgroundColor = '#FAFAFA', 
+         plotBorderColor = "black"),
+  xAxis = list(
+         gridLineColor = "E5E5E5", 
+         labels = list(style = list(color = "#333333")), 
+         lineColor = "#E5E5E5", 
+         minorGridLineColor = "#E5E5E5", 
+         tickColor = "#E5E5E5", 
+         title = list(style = list(color = "#333333"))), 
+  yAxis = list(
+         gridLineColor = "#E5E5E5", 
+         labels = list(style = list(color = "#333333")), 
+         lineColor = "#E5E5E5", 
+         minorGridLineColor = "#E5E5E5", 
+         tickColor = "#E5E5E5", 
+         tickWidth = 1, 
+         title = list(style = list(color = "#333333"))),   
+  title = list(style = list(color = '#333333', fontFamily = "Lato")),
+  subtitle = list(style = list(color = '#666666', fontFamily = "Lato")),
+  legend = list(
+         itemStyle = list(color = "#333333"), 
+         itemHoverStyle = list(color = "#FFF"), 
+         itemHiddenStyle = list(color = "#606063")), 
+  credits = list(style = list(color = "#666")),
+  itemHoverStyle = list(color = 'gray'))
+```
+
+<style>
+.colored {
+  background-color: #FAFAFA;
+}
+</style>
+
+
+
+Interactive Data Visualization 
+============================================================================
+
+ Column {.tabset .tabset-fade data-width=700 .colored }
+-----------------------------------------------------------------------
+
+### Economic status by Gender {.no-padding}
+
+```{r}
+ 
+```
+
+
+
+
+### Marital Status by Gender {.no-padding}
+
+```{r}
+ 
+        
+```
+
+
+
+### Industrial worked {.no-padding}
+
+```{r}
+
+```
+
+
+
+Data Visualization 
+==========================================================================
+
+```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+
+```
+
+
+
+Column 
+-----------------------------------------------------------------------
+
+#### DATA
+
+```{r}
+
+
+radioButtons("dat", "Select Data", choices = data)
+
+```
+
+
