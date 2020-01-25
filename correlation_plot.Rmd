@@ -1,0 +1,86 @@
+---
+title: "Graphs to Visualize Correlation Matrices in R"
+author: "ARMAAN"
+date: "1/11/2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Required Packages
+
+```{r}
+library("PerformanceAnalytics")
+require(sf) # sf package is a simplified package to work with spatial data
+require(tidyr)
+require(dplyr) # data manipulation package. e.g in left_join
+require(tidyverse)
+require(ggplot2)
+require(viridis) # color palletes
+require(extrafont) # for font styling
+```
+
+
+# Importing data
+
+```{r}
+# read rail noise polution shapefile - Polygon -- This can be swapped for the road data
+noise_pollution <- read_sf("Road_Lnight_London.shp")
+
+# read CSV and prevent defualt conversion of string to Factors data type
+average_prices <- read.csv("averagehouseprices2.csv", stringsAsFactors = F)
+
+```
+
+## Analyze the Correlation between variables 
+
+### 1 = highly related ; 0 = no relationship ; -1 = inverse relationship
+
+### Correlation chart with significant probability with distribution plot for without % dataset
+```{r}
+chart.Correlation(mydata, histogram=TRUE, pch=19)
+```
+
+```{r}
+library(corrr)
+
+mydata %>% correlate() %>% network_plot(min_cor=0.6)
+
+# It can also be called using the traditional method
+# network_plot(correlate(mydata), min_cor=0.5)
+```
+
+```{r}
+library(psych)
+
+pairs.panels(mydata, scale=TRUE)
+```
+
+```{r}
+library(corrplot)
+
+corrplot.mixed(cor(mydata), order="hclust", tl.col="black")
+```
+
+```{r}
+library(GGally)
+
+ggpairs(mydata)
+```
+
+```{r}
+ggcorr(mydata, nbreaks=8, palette='RdGy', label=TRUE, label_size=5, label_color='white')
+```
+
+```{r}
+library(ggcorrplot)
+
+ggcorrplot(cor(mtcars), p.mat = cor_pmat(mtcars), hc.order=TRUE, type='lower')
+```
+
+```{r}
+
+```
+
